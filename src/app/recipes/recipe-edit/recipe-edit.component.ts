@@ -13,11 +13,11 @@ export class RecipeEditComponent implements OnInit {
   editMode = false;
   form: FormGroup;
 
-  get controls() {
-    return (<FormArray>this.form.get('ingredients')).controls;
+  constructor(private route: ActivatedRoute, private recipeService: RecipeService) {
   }
 
-  constructor(private route: ActivatedRoute, private recipeService: RecipeService) {
+  get controls() {
+    return (<FormArray>this.form.get('ingredients')).controls;
   }
 
   ngOnInit() {
@@ -30,6 +30,15 @@ export class RecipeEditComponent implements OnInit {
 
   onSubmit() {
     console.log(this.form);
+  }
+
+  onAddIngredient() {
+    (<FormArray>this.form.get('ingredients')).push(
+      new FormGroup({
+        name: new FormControl(),
+        amount: new FormControl()
+      })
+    );
   }
 
   private initForm() {
