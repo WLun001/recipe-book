@@ -34,14 +34,14 @@ export class RecipeEditComponent implements OnInit {
       this.id,
       this.form.value['name'],
       this.form.value['description'],
-      this.form.value['imageUrl'],
+      this.form.value['imagePath'],
       this.form.value['ingredients']
     );
     if (this.editMode) {
       console.log(this.form.value);
-      this.recipeService.updateRecipe(this.id, newRecipe);
+      this.recipeService.updateRecipe(this.id, this.form.value);
     } else {
-      this.recipeService.addRecipe(newRecipe);
+      this.recipeService.addRecipe(this.form.value);
     }
     this.router.navigate(['../'], {relativeTo: this.route});
   }
@@ -87,7 +87,7 @@ export class RecipeEditComponent implements OnInit {
     }
     this.form = new FormGroup({
       name: new FormControl(recipeName, Validators.required),
-      imageUrl: new FormControl(recipeImageUrl, Validators.required),
+      imagePath: new FormControl(recipeImageUrl, Validators.required),
       description: new FormControl(recipeDescription, Validators.required),
       ingredients: recipeIngredients
     });
